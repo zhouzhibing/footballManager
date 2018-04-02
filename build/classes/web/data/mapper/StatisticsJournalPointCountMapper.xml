@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.data.mapper.StatisticsJournalPointCountMapper" >
+  <resultMap id="BaseResultMap" type="web.data.entity.StatisticsJournalPointCount" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="jp_count" property="jpCount" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, date, jp_count, `time`
+  </sql>
+  <select id="selectByDates" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select <include refid="Base_Column_List" /> from statistics_journal_point_count order by date desc limit #{param1} , #{param2}
+  </select>
+  <select id="selectByDate" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select <include refid="Base_Column_List" /> from statistics_journal_point_count where date = #{param1}
+  </select>
+  <select id="selectByPageNo" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select <include refid="Base_Column_List" /> from statistics_journal_point_count order by `time` desc limit #{param1} , #{param2} 
+  </select>
+  <select id="selectByPageNoAndType" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select <include refid="Base_Column_List" /> from statistics_journal_point_count where jp_count like CONCAT('%(', #{param3},')%') order by `time` desc limit #{param1} , #{param2}  
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from statistics_journal_point_count
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from statistics_journal_point_count
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="web.data.entity.StatisticsJournalPointCount" >
+    insert into statistics_journal_point_count (id, date, jp_count, 
+      time)
+    values (#{id,jdbcType=BIGINT}, #{date,jdbcType=VARCHAR}, #{jpCount,jdbcType=VARCHAR}, 
+      #{time,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="web.data.entity.StatisticsJournalPointCount" >
+    insert into statistics_journal_point_count
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="jpCount != null" >
+        jp_count,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="jpCount != null" >
+        #{jpCount,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="web.data.entity.StatisticsJournalPointCount" >
+    update statistics_journal_point_count
+    <set >
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="jpCount != null" >
+        jp_count = #{jpCount,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="web.data.entity.StatisticsJournalPointCount" >
+    update statistics_journal_point_count
+    set date = #{date,jdbcType=VARCHAR},
+      jp_count = #{jpCount,jdbcType=VARCHAR},
+      time = #{time,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

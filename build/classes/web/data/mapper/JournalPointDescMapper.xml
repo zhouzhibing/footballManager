@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.data.mapper.JournalPointDescMapper" >
+  <resultMap id="BaseResultMap" type="web.data.entity.JournalPointDesc" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="action_desc" property="actionDesc" jdbcType="VARCHAR" />
+    <result column="params1" property="params1" jdbcType="VARCHAR" />
+    <result column="params2" property="params2" jdbcType="VARCHAR" />
+    <result column="params3" property="params3" jdbcType="VARCHAR" />
+    <result column="params4" property="params4" jdbcType="VARCHAR" />
+    <result column="params5" property="params5" jdbcType="VARCHAR" />
+    <result column="params6" property="params6" jdbcType="VARCHAR" />
+    <result column="params7" property="params7" jdbcType="VARCHAR" />
+    <result column="params8" property="params8" jdbcType="VARCHAR" />
+    <result column="params9" property="params9" jdbcType="VARCHAR" />
+    <result column="params10" property="params10" jdbcType="VARCHAR" />
+    <result column="descs" property="descs" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, action_desc, params1, params2, params3, params4, params5, params6, params7, params8, 
+    params9, params10, descs
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" /> from journal_point_desc
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from journal_point_desc
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from journal_point_desc
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="web.data.entity.JournalPointDesc" >
+    insert into journal_point_desc (id, action_desc, params1, 
+      params2, params3, params4, 
+      params5, params6, params7, 
+      params8, params9, params10, 
+      descs)
+    values (#{id,jdbcType=VARCHAR}, #{actionDesc,jdbcType=VARCHAR}, #{params1,jdbcType=VARCHAR}, 
+      #{params2,jdbcType=VARCHAR}, #{params3,jdbcType=VARCHAR}, #{params4,jdbcType=VARCHAR}, 
+      #{params5,jdbcType=VARCHAR}, #{params6,jdbcType=VARCHAR}, #{params7,jdbcType=VARCHAR}, 
+      #{params8,jdbcType=VARCHAR}, #{params9,jdbcType=VARCHAR}, #{params10,jdbcType=VARCHAR}, 
+      #{descs,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="web.data.entity.JournalPointDesc" >
+    insert into journal_point_desc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="actionDesc != null" >
+        action_desc,
+      </if>
+      <if test="params1 != null" >
+        params1,
+      </if>
+      <if test="params2 != null" >
+        params2,
+      </if>
+      <if test="params3 != null" >
+        params3,
+      </if>
+      <if test="params4 != null" >
+        params4,
+      </if>
+      <if test="params5 != null" >
+        params5,
+      </if>
+      <if test="params6 != null" >
+        params6,
+      </if>
+      <if test="params7 != null" >
+        params7,
+      </if>
+      <if test="params8 != null" >
+        params8,
+      </if>
+      <if test="params9 != null" >
+        params9,
+      </if>
+      <if test="params10 != null" >
+        params10,
+      </if>
+      <if test="descs != null" >
+        descs,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="actionDesc != null" >
+        #{actionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="params1 != null" >
+        #{params1,jdbcType=VARCHAR},
+      </if>
+      <if test="params2 != null" >
+        #{params2,jdbcType=VARCHAR},
+      </if>
+      <if test="params3 != null" >
+        #{params3,jdbcType=VARCHAR},
+      </if>
+      <if test="params4 != null" >
+        #{params4,jdbcType=VARCHAR},
+      </if>
+      <if test="params5 != null" >
+        #{params5,jdbcType=VARCHAR},
+      </if>
+      <if test="params6 != null" >
+        #{params6,jdbcType=VARCHAR},
+      </if>
+      <if test="params7 != null" >
+        #{params7,jdbcType=VARCHAR},
+      </if>
+      <if test="params8 != null" >
+        #{params8,jdbcType=VARCHAR},
+      </if>
+      <if test="params9 != null" >
+        #{params9,jdbcType=VARCHAR},
+      </if>
+      <if test="params10 != null" >
+        #{params10,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null" >
+        #{descs,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="web.data.entity.JournalPointDesc" >
+    update journal_point_desc
+    <set >
+      <if test="actionDesc != null" >
+        action_desc = #{actionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="params1 != null" >
+        params1 = #{params1,jdbcType=VARCHAR},
+      </if>
+      <if test="params2 != null" >
+        params2 = #{params2,jdbcType=VARCHAR},
+      </if>
+      <if test="params3 != null" >
+        params3 = #{params3,jdbcType=VARCHAR},
+      </if>
+      <if test="params4 != null" >
+        params4 = #{params4,jdbcType=VARCHAR},
+      </if>
+      <if test="params5 != null" >
+        params5 = #{params5,jdbcType=VARCHAR},
+      </if>
+      <if test="params6 != null" >
+        params6 = #{params6,jdbcType=VARCHAR},
+      </if>
+      <if test="params7 != null" >
+        params7 = #{params7,jdbcType=VARCHAR},
+      </if>
+      <if test="params8 != null" >
+        params8 = #{params8,jdbcType=VARCHAR},
+      </if>
+      <if test="params9 != null" >
+        params9 = #{params9,jdbcType=VARCHAR},
+      </if>
+      <if test="params10 != null" >
+        params10 = #{params10,jdbcType=VARCHAR},
+      </if>
+      <if test="descs != null" >
+        descs = #{descs,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="web.data.entity.JournalPointDesc" >
+    update journal_point_desc
+    set action_desc = #{actionDesc,jdbcType=VARCHAR},
+      params1 = #{params1,jdbcType=VARCHAR},
+      params2 = #{params2,jdbcType=VARCHAR},
+      params3 = #{params3,jdbcType=VARCHAR},
+      params4 = #{params4,jdbcType=VARCHAR},
+      params5 = #{params5,jdbcType=VARCHAR},
+      params6 = #{params6,jdbcType=VARCHAR},
+      params7 = #{params7,jdbcType=VARCHAR},
+      params8 = #{params8,jdbcType=VARCHAR},
+      params9 = #{params9,jdbcType=VARCHAR},
+      params10 = #{params10,jdbcType=VARCHAR},
+      descs = #{descs,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.data.mapper.SysOperateLogMapper" >
+ <sql id="Base_Column_List" >
+    id, url, para ,user_name,ip, time,module_id
+  </sql>
+  <resultMap id="BaseResultMap" type="web.data.entity.OperateLog" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="para" property="para" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="module_id" property="moduleId" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="web.data.entity.OperateLog" >
+    insert into sys_operate_log (url,para,user_name,ip,time,module_id)
+    values ( #{url,jdbcType=VARCHAR}, #{para,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{moduleId,jdbcType=INTEGER})
+  </insert>
+  <select id="getOperateLog" resultMap="BaseResultMap">
+  	 select <include refid="Base_Column_List" /> from sys_operate_log order by time desc limit #{param1},#{param2}
+  </select>
+  <select id="selectLogCount" resultType="java.lang.Integer" >
+    	select count(id) from sys_operate_log
+  </select>
+</mapper>

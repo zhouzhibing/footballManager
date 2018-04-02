@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.data.mapper.SysDbListMapper" >
+  <resultMap id="BaseResultMap" type="web.data.entity.SysDbList" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="db_url" property="dbUrl" jdbcType="VARCHAR" />
+    <result column="db_user_name" property="dbUserName" jdbcType="VARCHAR" />
+    <result column="db_user_pwd" property="dbUserPwd" jdbcType="VARCHAR" />
+     <result column="db_class_name" property="dbClassName" jdbcType="VARCHAR" />
+    <result column="db_desc" property="dbDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, db_url, db_user_name, db_user_pwd,db_class_name, db_desc
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select  <include refid="Base_Column_List" /> from sys_db_list
+  </select>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_db_list
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_db_list
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="web.data.entity.SysServerList" >
+    insert into sys_db_list (<include refid="Base_Column_List" />)
+    values (#{id,jdbcType=INTEGER}, #{dbUrl,jdbcType=VARCHAR}, #{dbUserName,jdbcType=VARCHAR}, 
+      #{dbUserPwd,jdbcType=VARCHAR}, #{dbClassName,jdbcType=VARCHAR}, #{dbDesc,jdbcType=VARCHAR})
+  </insert>
+ 
+  <update id="updateByPrimaryKey" parameterType="web.data.entity.SysServerList" >
+    update sys_db_list
+    set db_url = #{dbUrl,jdbcType=VARCHAR},
+      db_user_name = #{dbUserName,jdbcType=VARCHAR},
+      db_user_pwd = #{dbUserPwd,jdbcType=VARCHAR},
+       db_class_name = #{dbClassName,jdbcType=VARCHAR},
+      db_desc = #{dbDesc,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

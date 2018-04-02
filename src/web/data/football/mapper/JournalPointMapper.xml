@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.data.football.mapper.JournalPointMapper" >
+  <resultMap id="BaseResultMap" type="web.data.football.entity.JournalPoint" >
+    <result column="time" property="time" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="action" property="action" jdbcType="VARCHAR" />
+    <result column="para1" property="para1" jdbcType="VARCHAR" />
+    <result column="para2" property="para2" jdbcType="VARCHAR" />
+    <result column="para3" property="para3" jdbcType="VARCHAR" />
+    <result column="para4" property="para4" jdbcType="VARCHAR" />
+    <result column="para5" property="para5" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    `time` ,`username`,`userid` ,`level` ,`type` ,`action`,`para1` ,`para2`,`para3`,`para4`,`para5`
+  </sql>
+  <select id="selectByDateAndAction" resultType="java.lang.Integer">
+    select count(time) from JOURNALPOINT where `time` like CONCAT(#{param1},'%') and action = #{param2}
+  </select>
+  <select id="selectByDate" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from JOURNALPOINT where `time` like CONCAT(#{param1},'%') limit #{param2} , #{param3}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from JOURNALPOINT limit 100
+  </select>
+  <insert id="insert" parameterType="web.data.football.entity.JournalPoint" >
+    insert into JOURNALPOINT (time, username, userid, 
+      level, type, action, 
+      para1, para2, para3, 
+      para4, para5)
+    values (#{time,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, 
+      #{level,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, 
+      #{para1,jdbcType=VARCHAR}, #{para2,jdbcType=VARCHAR}, #{para3,jdbcType=VARCHAR}, 
+      #{para4,jdbcType=VARCHAR}, #{para5,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="web.data.football.entity.JournalPoint" >
+    insert into JOURNALPOINT
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="userid != null" >
+        userid,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="action != null" >
+        action,
+      </if>
+      <if test="para1 != null" >
+        para1,
+      </if>
+      <if test="para2 != null" >
+        para2,
+      </if>
+      <if test="para3 != null" >
+        para3,
+      </if>
+      <if test="para4 != null" >
+        para4,
+      </if>
+      <if test="para5 != null" >
+        para5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="time != null" >
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null" >
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="para1 != null" >
+        #{para1,jdbcType=VARCHAR},
+      </if>
+      <if test="para2 != null" >
+        #{para2,jdbcType=VARCHAR},
+      </if>
+      <if test="para3 != null" >
+        #{para3,jdbcType=VARCHAR},
+      </if>
+      <if test="para4 != null" >
+        #{para4,jdbcType=VARCHAR},
+      </if>
+      <if test="para5 != null" >
+        #{para5,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

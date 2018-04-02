@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.data.mapper.SysServerListMapper" >
+  <resultMap id="BaseResultMap" type="web.data.entity.SysServerList" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="port" property="port" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="db_id" property="dbId" jdbcType="INTEGER" />
+    <result column="db_desc" property="dbDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, tag, name, ip, port, status, db_id, db_desc
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select  <include refid="Base_Column_List" /> from sys_server_list
+  </select>
+  <select id="selectByLikeName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" /> from sys_server_list where `name` like "%"#{param1}"%"
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_server_list
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_server_list
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="web.data.entity.SysServerList" >
+    insert into sys_server_list (id, tag, name, 
+      ip, port, status, db_id, 
+      db_desc)
+    values (#{id,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{port,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{dbId,jdbcType=INTEGER}, 
+      #{dbDesc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="web.data.entity.SysServerList" >
+    insert into sys_server_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tag != null" >
+        tag,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="port != null" >
+        port,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="dbId != null" >
+        db_id,
+      </if>
+      <if test="dbDesc != null" >
+        db_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        #{port,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbId != null" >
+        #{dbId,jdbcType=INTEGER},
+      </if>
+      <if test="dbDesc != null" >
+        #{dbDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="web.data.entity.SysServerList" >
+    update sys_server_list
+    <set >
+      <if test="tag != null" >
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="port != null" >
+        port = #{port,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="dbId != null" >
+        db_id = #{dbId,jdbcType=INTEGER},
+      </if>
+      <if test="dbDesc != null" >
+        db_desc = #{dbDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="web.data.entity.SysServerList" >
+    update sys_server_list
+    set tag = #{tag,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      port = #{port,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      db_id = #{dbId,jdbcType=INTEGER},
+      db_desc = #{dbDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

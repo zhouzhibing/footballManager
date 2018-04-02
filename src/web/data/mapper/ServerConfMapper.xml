@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.data.mapper.ServerConfMapper" >
+  <resultMap id="BaseResultMap" type="web.data.entity.ServerConf" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="key" property="key" jdbcType="VARCHAR" />
+    <result column="val" property="val" jdbcType="VARCHAR" />
+    <result column="desc" property="desc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, `key`, val, `desc`
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" /> from server_conf
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from server_conf
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from server_conf
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="web.data.entity.ServerConf" >
+    insert into server_conf (id, key, val, 
+      desc)
+    values (#{id,jdbcType=INTEGER}, #{key,jdbcType=VARCHAR}, #{val,jdbcType=VARCHAR}, 
+      #{desc,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="web.data.entity.ServerConf" >
+    insert into server_conf
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="key != null" >
+        `key`,
+      </if>
+      <if test="val != null" >
+        `val`,
+      </if>
+      <if test="desc != null" >
+        `desc`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="key != null" >
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="val != null" >
+        #{val,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="web.data.entity.ServerConf" >
+    update server_conf
+    <set >
+      <if test="key != null" >
+        `key` = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="val != null" >
+        val = #{val,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        `desc` = #{desc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="web.data.entity.ServerConf" >
+    update server_conf
+    set `key` = #{key,jdbcType=VARCHAR},
+      val = #{val,jdbcType=VARCHAR},
+      `desc` = #{desc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,98 @@
+	<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 配置编码（防止中文乱码） -->  
+    <constant name="struts.i18n.encoding" value="utf-8"></constant> 
+	<!--- 设置默认的上传下载文件大小 -->
+	<constant name="struts.multipart.maxSize" value="1000000000"/>
+
+	  <!--定义拦截器-->
+	<package name="struts-intercept" extends="struts-default" namespace="/">
+      <interceptors>
+        <!-- 定义拦截器栈包含myIntercept拦截器 -->  
+        <interceptor name="myIntercept" class="web.action.intercept.MyIntercept" />
+        <interceptor name="operateLogIntercept" class="web.action.intercept.OperateLogIntercept" />
+        <interceptor-stack name="myDefaultStack">  
+          <interceptor-ref name="myIntercept"></interceptor-ref> 
+          <interceptor-ref name="operateLogIntercept"></interceptor-ref>  
+          <interceptor-ref name="defaultStack"></interceptor-ref>  
+          <!--<interceptor-ref name="methodInterceptor"></interceptor-ref>-->  
+        </interceptor-stack>  
+      </interceptors>
+      <default-interceptor-ref name="myDefaultStack"/>
+       <!--配置公共的返回结果路径(这里目前是在拦截器用到这个公共的返回结果路径)-->
+  	   <global-results>
+		   <result name="tologin" type="redirect">/</result>
+		   <result name="exit" type="redirect">../page/main/User/exit.jsp</result>
+	   </global-results>
+    </package>
+ <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+ <package name="acts" extends="struts-intercept" namespace="/acts" >	
+ 	<action name="userAct" class="web.action.UserAction" >
+ 		<result name="success" type="redirect">/page/main/index.jsp</result>
+	 	<result name="fail" type="redirect">/error.jsp</result>
+	 	<result name="index.jsp" type="redirect">/</result>
+ 		<result name="editSelf.jsp" type="redirect">/page/main/User/editSelf.jsp</result>
+	 	<result name="User/index.jsp" type="redirect">/page/main/User/index.jsp</result>
+ 		<result name="User/edit.jsp" type="redirect">/page/main/User/edit.jsp</result>
+ 		<result name="User/add.jsp" type="redirect">/page/main/User/add.jsp</result>
+ 		<result name="ServerList/index.jsp" type="redirect">/page/main/ServerList/index.jsp</result>
+ 		<result name="login/login.jsp" type="redirect">/page/login/index.jsp</result>
+ 	</action>
+ 	
+ 	<action name="srvAct" class="web.action.ServerAction" >
+ 		<result name="success" type="redirect">/page/main/index.jsp</result>
+	 	<result name="fail" type="redirect">/error.jsp</result>
+	 	<result name="addResource.jsp" type="redirect">/page/main/Server/addResource.jsp</result>
+	 	<result name="executeCmd.jsp" type="redirect">/page/main/Server/executeCmd.jsp</result>
+	 	<result name="showInfo.jsp" type="redirect">/page/main/Server/showInfo.jsp</result>
+	 	<result name="online.jsp" type="redirect">/page/main/Server/online.jsp</result>
+ 		<result name="ServerList/index.jsp" type="redirect">acts/slAct!toServerListPage</result>
+ 		<result name="upConf.jsp" type="redirect">/page/main/Server/upConf.jsp</result>
+ 		<result name="upCache.jsp" type="redirect">/page/main/Server/upCache.jsp</result>
+ 		<result name="addMail.jsp" type="redirect">/page/main/Server/addMail.jsp</result>
+ 		<result name="serverConfInfo.jsp" type="redirect">/page/main/Server/serverConfInfo.jsp</result>
+ 	</action>
+ 	
+ 	<action name="giftAct" class="web.action.GiftAction" >
+ 		<result name="showGift.jsp" type="redirect">/page/main/Server/showGift.jsp</result>
+ 	</action>
+ 	
+ 	<action name="jpAct" class="web.action.JournalPointAction" >
+ 		<result name="journalPoint.jsp" type="redirect">/page/main/Server/journalPoint.jsp</result>
+ 		<result name="ServerList/index.jsp" type="redirect">/page/main/ServerList/index.jsp</result>
+ 	</action>
+ 	
+ 	
+ 	<action name="statAct" class="web.action.StatisticsAction" >
+ 		<result name="journalPointCountPage" type="redirect">/page/main/Statistics/journalPointCount.jsp</result>
+	 	<result name="eventInfoPage" type="redirect">/page/main/Server/eventInfo.jsp</result>
+	 	<result name="apointStatistics" type="redirect">/page/main/Server/apointStatistics.jsp</result>
+	 	<result name="exportXls" type="stream">
+	 		<param name="contentType">application/vnd.ms-excel</param>    <!-- 注意这里的ContentType -->
+            <param name="inputName">excelStream</param>                   <!-- 这里需要和Action里的变量名一致 -->
+            <param name="contentDisposition">filename="download.xls"</param> <!-- 下载文件的名字 -->
+	        <param name="bufferSize">102400</param>  <!-- 下载文件的大小 10485760=10M -->
+		</result>
+ 	</action>
+ 	
+ 	<action name="queryLog" class="web.action.OperateLogAction" method="queryLog"></action>
+	 	
+	 <action name="slAct" class="web.action.ServerListAction" >
+	 		<result name="success" type="redirect">/page/main/index.jsp</result>
+	 		<result name="ServerList/index.jsp" type="redirect">/page/main/ServerList/index.jsp</result>
+	 		<result name="ServerList/edit.jsp" type="redirect">/page/main/ServerList/edit.jsp</result>
+	 		<result name="online.jsp" type="redirect">/page/main/Server/online.jsp</result>
+	 		<result name="fail" type="redirect">/error.jsp</result>
+	 </action>
+	 <action name="dbAct" class="web.action.DbListAction" >
+	 		<result name="DbList/index.jsp" type="redirect">/page/main/DbList/index.jsp</result>
+	 		<result name="DbList/edit.jsp" type="redirect">/page/main/DbList/edit.jsp</result>
+	 		<result name="fail" type="redirect">/error.jsp</result>
+	 </action>
+ </package>
+
+ <package name="json" extends="json-default"></package>
+	 
+</struts>

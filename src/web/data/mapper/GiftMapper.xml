@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="web.data.mapper.GiftMapper" >
+  <resultMap id="BaseResultMap" type="web.data.entity.Gift" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="gift_no" property="giftNo" jdbcType="VARCHAR" />
+    <result column="item" property="item" jdbcType="VARCHAR" />
+    <result column="start_time" property="startTime" jdbcType="BIGINT" />
+    <result column="end_time" property="endTime" jdbcType="BIGINT" />
+    <result column="use_time" property="useTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, gift_no, item, start_time, end_time, use_time
+  </sql>
+  <select id="selectByUseTimeNull" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" /> from gift where use_time IS NULL limit #{param1} , #{param2}
+  </select>
+  <select id="selectByUseTimeNotNull" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" /> from gift where use_time IS NOT NULL limit #{param1} , #{param2}
+  </select>
+  <select id="selectByStartEndTime" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" /> from gift where start_time  &gt;= #{param1} and end_time &lt;= #{param2} limit #{param3} , #{param4}
+  </select>
+  <select id="selectByGiftNo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" /> from gift where gift_no like CONCAT('%', #{param1},'%') 
+  </select>
+  <insert id="insertList" parameterType="java.util.List" >
+    insert into gift (gift_no, item , start_time, end_time, use_time) values 
+    <foreach collection="list" item="itemObj" index="index" separator=",">
+    	(#{itemObj.giftNo},#{itemObj.item},#{itemObj.startTime},#{itemObj.endTime},#{itemObj.useTime})
+    </foreach>
+  </insert>
+  <select id="selectByPageNo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select <include refid="Base_Column_List" /> from gift limit #{param1} , #{param2}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select <include refid="Base_Column_List" /> from gift
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from gift
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="web.data.entity.Gift" >
+    insert into gift (id, gift_no, item, 
+      start_time, end_time, use_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{giftNo,jdbcType=VARCHAR}, #{item,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=BIGINT}, #{endTime,jdbcType=BIGINT}, #{useTime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="web.data.entity.Gift" >
+    insert into gift
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="giftNo != null" >
+        gift_no,
+      </if>
+      <if test="item != null" >
+        item,
+      </if>
+      <if test="startTime != null" >
+        start_time,
+      </if>
+      <if test="endTime != null" >
+        end_time,
+      </if>
+      <if test="useTime != null" >
+        use_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="giftNo != null" >
+        #{giftNo,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        #{item,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="useTime != null" >
+        #{useTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="web.data.entity.Gift" >
+    update gift
+    <set >
+      <if test="giftNo != null" >
+        gift_no = #{giftNo,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        item = #{item,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        start_time = #{startTime,jdbcType=BIGINT},
+      </if>
+      <if test="endTime != null" >
+        end_time = #{endTime,jdbcType=BIGINT},
+      </if>
+      <if test="useTime != null" >
+        use_time = #{useTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="web.data.entity.Gift" >
+    update gift
+    set gift_no = #{giftNo,jdbcType=VARCHAR},
+      item = #{item,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=BIGINT},
+      end_time = #{endTime,jdbcType=BIGINT},
+      use_time = #{useTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
